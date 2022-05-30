@@ -27,3 +27,20 @@ variable "image_tag_mutability" {
 }
 
 
+variable "use_fullname" {
+  type        = bool
+  default     = true
+  description = "Set 'true' to use `namespace-stage-name` for ecr repository name, else `name`"
+}
+
+variable "image_names" {
+  type        = list(string)
+  default     = []
+  description = "List of Docker local image names, used as repository names for AWS ECR "
+}
+
+variable "enabled" {
+  type        = bool
+  default     = true
+  description = "Set to false to prevent the module from creating any resources"
+}

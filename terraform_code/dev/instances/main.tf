@@ -116,6 +116,8 @@ resource "aws_eip" "static_eip" {
 # Retrieve global variables from the Terraform module
 module "ecr" {
   source = "../../modules/ecr"
-   env             = var.env
-   prefix          = var.prefix
+  # env    = var.env
+  prefix = var.prefix
+  use_fullname = var.use_fullname
+  image_names  = var.image_names
 }
