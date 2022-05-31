@@ -1,4 +1,4 @@
-name: seq1
+name: build-cats-img
 
 on: 
   push:
