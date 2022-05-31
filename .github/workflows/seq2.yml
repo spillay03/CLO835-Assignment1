@@ -1,4 +1,4 @@
-name: seq2
+name: run-cats-img
 
 on:
   repository_dispatch:
@@ -40,7 +40,6 @@ jobs:
         echo "Pause for 10 seconds to let container start"
         sleep 10
         curl localhost -vvv
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
     - name: Trigger next workflow
        if: success()
        uses: peter-evans/repository-dispatch@v1
