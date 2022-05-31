@@ -49,5 +49,5 @@ jobs:
   with:
     token: ${{ secrets.REPO_GHA_PAT }}
     repository: ${{ github.repository }}
-    event-type: trigger-workflow-ecr-dogs-docker
+    event-type: trigger-ecr-dogs-docker
     client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
