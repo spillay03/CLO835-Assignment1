@@ -1,8 +1,8 @@
-name: seq2
+name: run-cats-img
 
 on:
   repository_dispatch:
-  types: [trigger-workflow-2]
+   types: [trigger-workflow-2]
 
 jobs:
   
@@ -34,7 +34,6 @@ jobs:
       run: |
         cd cats/
         ls -ltra
-    # Unit test
         docker run -d -p 80:80 --name nodeapp $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker ps
         echo "Pause for 10 seconds to let container start"
