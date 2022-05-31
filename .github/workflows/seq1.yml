@@ -1,4 +1,4 @@
-name: Deploy to ECR
+name: seq1
 
 on: 
   push:
@@ -29,24 +29,17 @@ jobs:
     - name: Build, test, tag, and push image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: dogs-docker-img
+        ECR_REPOSITORY: cats
         IMAGE_TAG: v0.1
       run: |
-        cd dogs/
+        cd cats/
         ls -ltra
         # Docker build
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        # Unit test
-        docker run -d -p 80:80 --name nodeapp $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        docker ps
-        echo "Pause for 10 seconds to let container start"
-        sleep 10
-        curl localhost -vvv
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
     - name: Trigger next workflow
-        if: success()
-        uses: peter-evans/repository-dispatch@v1
-     with:
+       if: success()
+       uses: peter-evans/repository-dispatch@v1
+       with:
        token: ${{ secrets.REPO_GHA_PAT }}
        repository: ${{ github.repository }}
        event-type: trigger-workflow-2
