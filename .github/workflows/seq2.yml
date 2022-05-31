@@ -2,7 +2,7 @@ name: seq2
 
 on:
   repository_dispatch:
-  types: [trigger-workflow-2]
+    types: [trigger-workflow-2]
 
 jobs:
   
