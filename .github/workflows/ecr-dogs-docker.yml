@@ -1,4 +1,4 @@
-name: Deploy to ECR
+name: ecr-dogs-img
 
 on:
   repository_dispatch:
