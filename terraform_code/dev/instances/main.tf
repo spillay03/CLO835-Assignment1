@@ -53,6 +53,14 @@ resource "aws_instance" "my_amazon" {
   key_name                    = aws_key_pair.my_key.key_name
   vpc_security_group_ids      = [aws_security_group.my_sg.id]
   associate_public_ip_address = false
+  user_data                   = <<EOF
+  #! /bin/sh
+ yum update -y
+ amazon-linux-extras install docker
+ service docker start
+ usermod -a -G docker ec2-user
+ chkconfig docker on
+  EOF
 
   lifecycle {
     create_before_destroy = true
@@ -117,7 +125,7 @@ resource "aws_eip" "static_eip" {
 module "ecr" {
   source = "../../modules/ecr"
   # env    = var.env
-  prefix = var.prefix
+  prefix       = var.prefix
   use_fullname = var.use_fullname
   image_names  = var.image_names
 }
