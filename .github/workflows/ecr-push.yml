@@ -38,12 +38,11 @@ jobs:
          sleep 10
          curl localhost -vvv
          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-         
+	 
 outputs:
-			# This needs to match your step's id and name parameters
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-steps:
-			# Important: Do not forget the id!
+  matrix: ${{ steps.set-matrix.outputs.matrix }}
+  steps:
+  
       - id: set-matrix
         run: echo "::set-output name=matrix::{\"node\":[10, 12, 14]}"
 job2:
