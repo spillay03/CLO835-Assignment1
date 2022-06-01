@@ -1,4 +1,4 @@
-name: build-cats-img
+name: run-cats-img
 
 on: 
   push:
