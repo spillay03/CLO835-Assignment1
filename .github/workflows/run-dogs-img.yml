@@ -1,4 +1,4 @@
-name: build-dogs-img
+name: run-dogs-img
 
 on:
   repository_dispatch:
