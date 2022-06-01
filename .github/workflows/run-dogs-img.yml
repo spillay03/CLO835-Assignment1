@@ -1,8 +1,8 @@
-name: run-dogs-img
+name: build-dogs-img
 
 on:
   repository_dispatch:
-   types: [trigger-workflow-2]
+    types: [trigger-workflow-2]
 
 jobs:
   
@@ -34,19 +34,20 @@ jobs:
       run: |
         cd dogs/
         ls -ltra
+    
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker run -d -p 81:80 --name nodeapp $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+        docker run -d -p 80:80 --name nodeapp $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker ps
         echo "Pause for 10 seconds to let container start"
         sleep 10
         curl localhost -vvv
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-       
     - name: Trigger next workflow
       if: success()
       uses: peter-evans/repository-dispatch@v1
       with:
        token: ${{ secrets.REPO_GHA_PAT }}
        repository: ${{ github.repository }}
-       event-type: trigger-workflow-3
+       event-type: trigger-workflow-2
        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
