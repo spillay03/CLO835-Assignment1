@@ -1,4 +1,4 @@
-name: run-img
+name: run-img1
 on: 
  push: 
   branches: [ main ]
