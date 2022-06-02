@@ -29,12 +29,7 @@ jobs:
     
          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
 
-         docker run -d -p 80:80 --name nodeapp $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-         docker ps
-         echo "Pause for 10 seconds to let container start"
-         sleep 10
-         curl localhost -vvv
-         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+    
   job2:
     runs-on: ubuntu-latest
     needs: [job1]
