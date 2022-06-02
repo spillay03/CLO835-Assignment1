@@ -39,9 +39,8 @@ jobs:
          echo "Pause for 10 seconds to let container start"
          sleep 10
          curl localhost -vvv
+         echo "end of job1"
         
-
-
 job2:
    needs: [job1]
    example_matrix1:
