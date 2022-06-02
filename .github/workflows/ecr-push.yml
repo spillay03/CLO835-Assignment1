@@ -46,11 +46,9 @@ job2:
    needs: job1
    name: Build Image1
    strategy:
-			
-      matrix: ${{fromJSON(needs.job1.outputs.matrix)}}
+     matrix: ${{fromJSON(needs.job1.outputs.matrix)}}
    runs-on: ubuntu-latest
-
-    steps:
+   steps:
 
       - name: Check out code
         uses: actions/checkout@v2
