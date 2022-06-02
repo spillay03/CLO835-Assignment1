@@ -4,7 +4,7 @@ on:
   branches: [ main ]
 jobs:
 
-    build-pubish:
+    job1:
        example_matrix:
        strategy:
        matrix:
@@ -24,7 +24,7 @@ jobs:
           AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
           AWS_REGION: us-east-1
         
-      - name: Build, test, tag, and push image to Amazon ECR
+      - name: Build, test and tag image to Amazon ECR
         env:
          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
          ECR_REPOSITORY: ${{ matrix.os }}
@@ -34,12 +34,16 @@ jobs:
          ls -ltra
     
          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-         echo $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+         docker run -d -p 80:80 --name nodeapp $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+         docker ps
+         echo "Pause for 10 seconds to let container start"
+         sleep 10
+         curl localhost -vvv
+        
 
 
-run-test:
-   needs: [build-pubish]
+job2:
+   needs: [job1]
    example_matrix1:
      strategy:
        matrix:
@@ -60,7 +64,7 @@ run-test:
           AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
           AWS_REGION: us-east-1
         
-      - name: Build, test, tag, and push image to Amazon ECR
+      - name:push image to Amazon ECR
         env:
          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
          ECR_REPOSITORY: ${{ matrix.os }}
@@ -68,11 +72,9 @@ run-test:
         run: |
          cd ${{ matrix.os }}/
          ls -ltra
-         docker run -d -p 80:80 --name nodeapp $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-         docker ps
-         echo "Pause for 10 seconds to let container start"
-         sleep 10
-         curl localhost -vvv
+         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+         echo $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      
 
         
          
