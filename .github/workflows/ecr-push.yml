@@ -1,4 +1,4 @@
-name: run-img
+name: run-img-ecr
 on: 
  push: 
   branches: [ main ]
