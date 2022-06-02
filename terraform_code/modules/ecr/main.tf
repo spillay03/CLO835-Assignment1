@@ -1,6 +1,6 @@
 
 #----------------------------------------------------------
-# CLO835-assignment 1- Terraform Introduction
+# CLO835-assignment 1- Containers  Introduction
 #
 # Module to create  ECR Repository
 #
@@ -13,11 +13,6 @@ provider "aws" {
 
 # Local variables
 locals {
-  # default_tags = merge(
-  #   var.default_tags,
-  #   { "Env" = var.env }
-  # )
-  # name_prefix = "${var.prefix}-${var.env}"
   _name       = var.use_fullname 
   image_names = length(var.image_names) > 0 ? var.image_names : [local._name]
 }
@@ -30,10 +25,5 @@ resource "aws_ecr_repository" "repo" {
   image_scanning_configuration {
     scan_on_push = true
   }
-  #   tags = merge(local.default_tags,
-  #   {
-  #     "Name" = "${local.name_prefix}-webserver-${count.index + 1}"
-  #   }
-  # )
 }
 
