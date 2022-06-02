@@ -4,7 +4,7 @@ on:
   branches: [ main ]
 jobs:
 
-    job1:
+    build-pubish:
        example_matrix:
        strategy:
        matrix:
@@ -38,8 +38,8 @@ jobs:
          echo $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
 
-job2:
-   needs: [job1]
+run-test:
+   needs: [build-pubish]
    example_matrix1:
      strategy:
        matrix:
