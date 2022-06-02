@@ -1,4 +1,4 @@
-name: run-cats-img
+name: run-img
 on: 
  push: 
   branches: [ main ]
