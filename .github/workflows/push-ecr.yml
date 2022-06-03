@@ -1,7 +1,7 @@
 name: push-ecr
 on: 
  push: 
-  branches: [ Dev ]
+  branches: [ main ]
  
 jobs:
    example_matrix:
