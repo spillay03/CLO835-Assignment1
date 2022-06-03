@@ -8,7 +8,7 @@ jobs:
      strategy:
          matrix:
            repo: [cats, dogs]
-           dir: [cats, dogs]
+   
      runs-on: ubuntu-latest
      steps:
       - name: Check out code
@@ -29,7 +29,7 @@ jobs:
          ECR_REPOSITORY: ${{ matrix.repo }}
          IMAGE_TAG: v0.1
         run: |
-         cd ${{ matrix.dir }}/
+         cd ${{ matrix.repo }}/
          ls -ltra
     
          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
